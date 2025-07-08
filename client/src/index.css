@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 20%);
+  --muted: hsl(0, 0%, 96%);
+  --muted-foreground: hsl(0, 0%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 20%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 20%);
+  --border: hsl(0, 0%, 89%);
+  --input: hsl(0, 0%, 89%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(0, 0%, 96%);
+  --secondary-foreground: hsl(0, 0%, 9%);
+  --accent: hsl(0, 0%, 96%);
+  --accent-foreground: hsl(0, 0%, 9%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(0, 0%, 89%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 70%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 50%);
+  --popover: hsl(0, 0%, 5%);
+  --popover-foreground: hsl(0, 0%, 70%);
+  --card: hsl(0, 0%, 5%);
+  --card-foreground: hsl(0, 0%, 70%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 20%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(0, 0%, 15%);
+  --secondary-foreground: hsl(0, 0%, 90%);
+  --accent: hsl(0, 0%, 15%);
+  --accent-foreground: hsl(0, 0%, 90%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(0, 0%, 30%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Lexend', sans-serif;
+  }
+}
+
+/* Custom styles for dynamic font sizing */
+.time-display {
+  font-size: clamp(3rem, var(--clock-size, 15vw), 20rem);
+  line-height: 0.9;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Smooth transitions for time updates */
+.time-text {
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* Timezone display - 5x smaller than time */
+.timezone-display {
+  font-size: clamp(0.6rem, calc(var(--clock-size, 12vw) / 5), 4rem);
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Ensure proper aspect ratio maintenance */
+.clock-container {
+  width: 70vw;
+  max-width: 90vw;
+}
+
+/* Bottom control styles */
+.slider {
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: var(--slider-track-color, #e5e7eb);
+  height: 8px;
+  border-radius: 4px;
+}
+
+.dark .slider::-webkit-slider-track {
+  background: var(--slider-track-color, #374151);
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  background: var(--slider-thumb-color, #4b5563);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dark .slider::-webkit-slider-thumb {
+  background: var(--slider-thumb-color, #9ca3af);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: var(--slider-thumb-hover-color, #374151);
+}
+
+.dark .slider::-webkit-slider-thumb:hover {
+  background: var(--slider-thumb-hover-color, #d1d5db);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .clock-container {
+    width: var(--clock-width, 80vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .time-display {
+    font-size: clamp(3rem, var(--clock-size, 16vw), 15rem);
+  }
+  .clock-container {
+    width: var(--clock-width, 85vw);
+  }
+  
+  .nav-bar {
+    width: 320px;
+  }
+}
+
+@media (max-width: 640px) {
+  .time-display {
+    font-size: clamp(2.5rem, var(--clock-size, 18vw), 12rem);
+  }
+  .clock-container {
+    width: var(--clock-width, 90vw);
+  }
+  
+  .nav-bar {
+    width: 300px;
+  }
+  
+  .nav-toggle {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .explore-indicator {
+    top: 4rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .time-display {
+    font-size: clamp(2rem, var(--clock-size, 20vw), 10rem);
+    letter-spacing: -0.01em;
+  }
+  
+  .nav-bar {
+    width: 280px;
+    padding: 1.5rem;
+  }
+  
+  .nav-toggle {
+    padding: 0.5rem;
+  }
+  
+  .explore-indicator {
+    top: 3.5rem;
+    right: 1rem;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-bar {
+    width: 260px;
+    padding: 1rem;
+  }
+  
+  .time-display {
+    font-size: clamp(1.8rem, var(--clock-size, 22vw), 8rem);
+  }
+}
